@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROMI - Registro de Síntomas</title>
+    <meta name="description" content="Interfaz para registrar síntomas médicos básicos">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="header__title">
+             <img src="img/romiaxo.jpg" alt="ROMI Mascota" class="header__logo">
+                ROMI - Asistente Médico Virtual
+            </h1>
+            <p class="header__subtitle">Registra tus síntomas de forma rápida y segura</p>
+        </header>
+
+        <!-- Main Form // Formulario principal -->
+        <main class="main">
+            <form id="symptomsForm" class="form" novalidate>
+                <div class="form__section">
+                    <h2 class="form__section-title">Información Personal</h2>
+                    
+                    <div class="form__group">
+                        <label for="patientName" class="form__label">
+                            Nombre completo *
+                        </label>
+                        <input 
+                            type="text" 
+                            id="patientName" 
+                            name="patientName"
+                            class="form__input"
+                            required
+                            aria-describedby="patientName-error"
+                            placeholder="Ej: María González"
+                        >
+                        <span id="patientName-error" class="form__error" role="alert"></span>
+                    </div>
+
+                    <div class="form__group">
+                        <label for="patientAge" class="form__label">
+                            Edad *
+                        </label>
+                        <input 
+                            type="number" 
+                            id="patientAge" 
+                            name="patientAge"
+                            class="form__input"
+                            required
+                            min="0"
+                            max="120"
+                            aria-describedby="patientAge-error"
+                            placeholder="Ej: 25"
+                        >
+                        <span id="patientAge-error" class="form__error" role="alert"></span>
+                    </div>
+                </div>
+
+                <div class="form__section">
+                    <h2 class="form__section-title">Síntomas</h2>
+                    
+                    <!-- Checkbox symtptoms // Síntomas con checkboxes -->
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">Selecciona los síntomas que presentas:</legend>
+                        
+                        <div class="checkbox-group">
+                            <label class="checkbox__item">
+                                <input type="checkbox" name="symptoms" value="dolor_cabeza" class="checkbox__input">
+                                <span class="checkbox__custom"></span>
+                                <span class="checkbox__label">Dolor de cabeza</span>
+                            </label>
+                            
+                            <label class="checkbox__item">
+                                <input type="checkbox" name="symptoms" value="fiebre" class="checkbox__input">
+                                <span class="checkbox__custom"></span>
+                                <span class="checkbox__label">Fiebre</span>
+                            </label>
+                            
+                            <label class="checkbox__item">
+                                <input type="checkbox" name="symptoms" value="tos" class="checkbox__input">
+                                <span class="checkbox__custom"></span>
+                                <span class="checkbox__label">Tos</span>
+                            </label>
+                            
+                            <label class="checkbox__item">
+                                <input type="checkbox" name="symptoms" value="dolor_garganta" class="checkbox__input">
+                                <span class="checkbox__custom"></span>
+                                <span class="checkbox__label">Dolor de garganta</span>
+                            </label>
+                            
+                            <label class="checkbox__item">
+                                <input type="checkbox" name="symptoms" value="fatiga" class="checkbox__input">
+                                <span class="checkbox__custom"></span>
+                                <span class="checkbox__label">Fatiga</span>
+                            </label>
+                            
+                            <label class="checkbox__item">
+                                <input type="checkbox" name="symptoms" value="nauseas" class="checkbox__input">
+                                <span class="checkbox__custom"></span>
+                                <span class="checkbox__label">Náuseas</span>
+                            </label>
+                        </div>
+                        
+                        <span id="symptoms-error" class="form__error" role="alert"></span>
+                    </fieldset>
+
+                    <!-- Level of pain // Nivel de dolor -->
+                    <div class="form__group">
+                        <label for="painLevel" class="form__label">
+                            Nivel de dolor/malestar general (1-10) *
+                            <span class="form__help">1 = Sin dolor, 10 = Dolor severo</span>
+                        </label>
+                        <div class="pain-scale">
+                            <input 
+                                type="range" 
+                                id="painLevel" 
+                                name="painLevel"
+                                class="pain-scale__slider"
+                                min="1"
+                                max="10"
+                                value="1"
+                                required
+                                aria-describedby="painLevel-value painLevel-error"
+                            >
+                            <div class="pain-scale__display">
+                                <span class="pain-scale__label">Nivel actual:</span>
+                                <span id="painLevel-value" class="pain-scale__value">1</span>
+                                <span class="pain-scale__description" id="painLevel-description">Sin dolor</span>
+                            </div>
+                        </div>
+                        <span id="painLevel-error" class="form__error" role="alert"></span>
+                    </div>
+
+                    <!--Additional Descriptionv // Descripción adicional -->
+                    <div class="form__group">
+                        <label for="additionalInfo" class="form__label">
+                            Información adicional
+                            <span class="form__help">(Opcional) Describe otros síntomas o detalles relevantes</span>
+                        </label>
+                        <textarea 
+                            id="additionalInfo" 
+                            name="additionalInfo"
+                            class="form__textarea"
+                            rows="4"
+                            placeholder="Ej: El dolor comenzó esta mañana, empeora al moverme..."
+                            maxlength="500"
+                            aria-describedby="additionalInfo-counter"
+                        ></textarea>
+                        <div class="form__counter">
+                            <span id="additionalInfo-counter">0/500 caracteres</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons //Botones de acción -->
+                <div class="form__actions">
+                    <button type="reset" class="btn btn--secondary">
+                        Limpiar formulario
+                    </button>
+                    <button type="submit" class="btn btn--primary">
+                        Registrar síntomas
+                    </button>
+                </div>
+            </form>
+
+            <!-- Confirmation Massage //Mensaje de confirmación -->
+            <div id="successMessage" class="success-message" role="alert" aria-live="polite">
+                <div class="success-message__content">
+                    <span class="success-message__icon">✅</span>
+                    <div class="success-message__text">
+                        <h3>¡Síntomas registrados exitosamente!</h3>
+                        <p>Tu información ha sido enviada. Un profesional médico revisará tu caso pronto.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 ROMI Asistente Médico Virtual. Todos los derechos reservados.</p>
+            <p class="footer__disclaimer">
+                <strong>Importante:</strong> Esta aplicación no reemplaza la consulta médica profesional.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
